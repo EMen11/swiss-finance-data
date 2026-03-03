@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Python package for Swiss financial data"
 readme = "README.md"
 authors = [
-    {name = "Elie Menassa", email = "elie.menassa@gmail.com"}
+    {name = "Elie Menassa", email = "menassa.elie.dev@gmail.com"}
 ]
 license = {text = "MIT"}
 classifiers = [
