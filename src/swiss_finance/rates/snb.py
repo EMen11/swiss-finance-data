@@ -73,13 +73,13 @@ class SNB:
     @staticmethod
     def get_saron(provider: str = None) -> float:
         """
-        Get current SARON (Swiss Average Rate Overnight).
+        Get current SARON monthly average.
 
         The SARON is the risk-free reference rate for CHF,
         replacing LIBOR CHF since 2021.
 
         Returns:
-            Current SARON rate (percentage)
+            Current SARON monthly average (percentage)
 
         Example:
             >>> from swiss_finance import SNB
@@ -94,7 +94,7 @@ class SNB:
         end: str = None
     ) -> pd.DataFrame:
         """
-        Get historical SARON rates.
+        Get historical SARON monthly averages.
 
         Args:
             start: Start date (YYYY-MM), optional
@@ -114,6 +114,55 @@ class SNB:
 
         fetcher = SARONProvider()
         return fetcher.get_historical_saron(
+            start_date=start,
+            end_date=end
+        )
+
+    @staticmethod
+    def get_saron_daily() -> float:
+        """
+        Get latest SARON daily fixing.
+
+        Published at the close of each business day.
+        More granular than monthly average — use for daily risk calculations.
+
+        Returns:
+            Latest SARON daily fixing (percentage)
+
+        Example:
+            >>> from swiss_finance import SNB
+            >>> saron = SNB.get_saron_daily()
+            >>> rf_daily = saron / 100 / 252  # daily risk-free rate
+        """
+        fetcher = SARONProvider()
+        return fetcher.get_current_saron_daily()
+
+    @staticmethod
+    def get_historical_saron_daily(
+        start: str = None,
+        end: str = None
+    ) -> pd.DataFrame:
+        """
+        Get historical daily SARON fixings.
+
+        Args:
+            start: Start date (YYYY-MM-DD), optional
+            end: End date (YYYY-MM-DD), optional
+
+        Returns:
+            DataFrame with date index and 'rate' column (business days only)
+
+        Example:
+            >>> from swiss_finance import SNB
+            >>> saron = SNB.get_historical_saron_daily(start='2024-01-01')
+        """
+        if start and end and start > end:
+            raise ValueError(
+                f"start date '{start}' must be before end date '{end}'"
+            )
+
+        fetcher = SARONProvider()
+        return fetcher.get_historical_saron_daily(
             start_date=start,
             end_date=end
         )
