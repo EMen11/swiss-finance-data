@@ -37,11 +37,14 @@ It does not aim to replace global data providers such as yfinance, but to comple
 
 ## Features
 
-**v0.1.0 — Available now:**
+## Features
+
+**v0.1.1 — Available now:**
 -  **SNB Policy Rate** — Current and historical Swiss National Bank policy rates
 -  **Provider Architecture** — Extensible system for multiple data sources
 -  **Tested & documented** — 89% unit test coverage
 -  **Reliable** — Official Swiss government data sources, no scraping
+-  **Improved error handling** — Clear messages for invalid date ranges and future dates
 
 **Coming in future versions:**
 - SMI equities (v0.2.0)
@@ -203,7 +206,8 @@ pytest --cov=swiss_finance tests/
 ## Roadmap
 
 - [x] v0.1.0 — SNB policy rates
-- [ ] v0.2.0 — SMI equities + caching
+- [x] v0.1.1 — Improved error handling and date validation
+- [ ] v0.2.0 — SARON + FX rates CHF + SMI equities
 - [ ] v0.3.0 — Swiss government bonds
 - [ ] v0.4.0 — Real estate indices (SWIIT)
 - [ ] v1.0.0 — Stable API, full documentation
