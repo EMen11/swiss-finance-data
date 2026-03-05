@@ -1,6 +1,6 @@
 """swiss-finance-data: Python package for Swiss financial data."""
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 from .rates.snb import SNB
 from .core.exceptions import (

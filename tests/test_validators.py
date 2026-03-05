@@ -18,7 +18,7 @@ class TestValidateDataframe:
         df = pd.DataFrame()
         with pytest.raises(DataValidationError) as exc_info:
             validate_dataframe(df, required_columns=["date"], min_rows=1)
-        assert "empty" in str(exc_info.value).lower()
+        assert "no data available" in str(exc_info.value).lower()
 
     def test_missing_column_raises(self):
         """Doit lever DataValidationError si colonne manquante."""

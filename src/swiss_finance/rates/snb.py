@@ -53,15 +53,17 @@ class SNB:
         Raises:
             ProviderNotFoundError: If provider not found
             SNBAPIError: If data fetch fails
+            ValueError: If start > end
 
         Example:
             >>> from swiss_finance import SNB
             >>> rates = SNB.get_historical_rates(start='2020-01')
-            >>> print(rates.head())
-                        rate
-            date
-            2020-01-01 -0.75
         """
+        if start and end and start > end:
+            raise ValueError(
+                f"start date '{start}' must be before end date '{end}'"
+            )
+
         provider = provider or SNB.DEFAULT_PROVIDER
         fetcher = ProviderRegistry.get(provider)()
         return fetcher.get_historical_policy_rates(

@@ -23,7 +23,11 @@ def validate_dataframe(
         raise DataValidationError("Data must be a pandas DataFrame")
 
     if df.empty and min_rows > 0:
-        raise DataValidationError("DataFrame is empty")
+        raise DataValidationError(
+            "No data available for the requested date range. "
+            "Check that your dates are not in the future and "
+            "that the SNB API has data for this period."
+        )
 
     if len(df) < min_rows:
         raise DataValidationError(
