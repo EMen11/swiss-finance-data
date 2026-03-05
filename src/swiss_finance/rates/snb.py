@@ -1,6 +1,12 @@
 """Swiss National Bank (SNB) rates API."""
 import pandas as pd
 from ..core.providers import ProviderRegistry
+from .providers.snb_official import SNBOfficialProvider
+from .providers.saron import SARONProvider
+
+# Auto-register providers
+ProviderRegistry.register("snb_official", SNBOfficialProvider)
+ProviderRegistry.register("saron", SARONProvider)
 
 
 class SNB:
@@ -19,15 +25,10 @@ class SNB:
         Returns:
             Current policy rate (percentage)
 
-        Raises:
-            ProviderNotFoundError: If provider not found
-            SNBAPIError: If data fetch fails
-
         Example:
             >>> from swiss_finance import SNB
             >>> rate = SNB.get_policy_rate()
             >>> print(f"SNB Rate: {rate}%")
-            SNB Rate: 0.5%
         """
         provider = provider or SNB.DEFAULT_PROVIDER
         fetcher = ProviderRegistry.get(provider)()
@@ -51,8 +52,6 @@ class SNB:
             DataFrame with date index and 'rate' column
 
         Raises:
-            ProviderNotFoundError: If provider not found
-            SNBAPIError: If data fetch fails
             ValueError: If start > end
 
         Example:
@@ -72,15 +71,54 @@ class SNB:
         )
 
     @staticmethod
-    def list_providers() -> list:
+    def get_saron(provider: str = None) -> float:
         """
-        List available SNB data providers.
+        Get current SARON (Swiss Average Rate Overnight).
+
+        The SARON is the risk-free reference rate for CHF,
+        replacing LIBOR CHF since 2021.
 
         Returns:
-            List of provider names
+            Current SARON rate (percentage)
 
         Example:
-            >>> SNB.list_providers()
-            ['snb_official']
+            >>> from swiss_finance import SNB
+            >>> rf = SNB.get_saron() / 100  # as decimal for Sharpe ratio
         """
+        fetcher = SARONProvider()
+        return fetcher.get_current_saron()
+
+    @staticmethod
+    def get_historical_saron(
+        start: str = None,
+        end: str = None
+    ) -> pd.DataFrame:
+        """
+        Get historical SARON rates.
+
+        Args:
+            start: Start date (YYYY-MM), optional
+            end: End date (YYYY-MM), optional
+
+        Returns:
+            DataFrame with date index and 'rate' column
+
+        Example:
+            >>> from swiss_finance import SNB
+            >>> saron = SNB.get_historical_saron(start='2021-01')
+        """
+        if start and end and start > end:
+            raise ValueError(
+                f"start date '{start}' must be before end date '{end}'"
+            )
+
+        fetcher = SARONProvider()
+        return fetcher.get_historical_saron(
+            start_date=start,
+            end_date=end
+        )
+
+    @staticmethod
+    def list_providers() -> list:
+        """List available SNB data providers."""
         return ProviderRegistry.list_providers()

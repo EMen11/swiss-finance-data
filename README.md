@@ -1,13 +1,13 @@
 # swiss-finance-data
 
-> Python package for Swiss financial data — starting with SNB (Swiss National Bank)
+> Python package for Swiss financial data — official sources, clean API
 
 [![PyPI version](https://img.shields.io/pypi/v/swiss-finance-data.svg)](https://pypi.org/project/swiss-finance-data/)
 [![Tests](https://github.com/EMen11/swiss-finance-data/actions/workflows/test.yml/badge.svg)](https://github.com/EMen11/swiss-finance-data/actions)
 [![Coverage](https://img.shields.io/codecov/c/github/EMen11/swiss-finance-data)](https://codecov.io/gh/EMen11/swiss-finance-data)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/pypi/pyversions/swiss-finance-data.svg)](https://pypi.org/project/swiss-finance-data/)
-[![Downloads](https://static.pepy.tech/badge/swiss-finance-data)](https://pepy.tech/project/swiss-finance-data) 
+[![Downloads](https://static.pepy.tech/badge/swiss-finance-data)](https://pepy.tech/project/swiss-finance-data)
 
 ---
 
@@ -22,6 +22,7 @@ swiss-finance-data aims to provide:
 - Long-term maintainability
 
 ---
+
 ## Scope
 
 swiss-finance-data focuses on:
@@ -37,20 +38,14 @@ It does not aim to replace global data providers such as yfinance, but to comple
 
 ## Features
 
-## Features
-
-**v0.1.1 — Available now:**
+**v0.2.0 — Available now:**
 -  **SNB Policy Rate** — Current and historical Swiss National Bank policy rates
+-  **SARON** — Swiss Average Rate Overnight, the CHF risk-free reference rate (replaces LIBOR)
+-  **CHF FX Rates** — EUR, USD, GBP, JPY, CAD, AUD, SEK, NOK, DKK vs CHF
 -  **Provider Architecture** — Extensible system for multiple data sources
--  **Tested & documented** — 89% unit test coverage
+-  **Tested & documented** — 86% unit test coverage
 -  **Reliable** — Official Swiss government data sources, no scraping
--  **Improved error handling** — Clear messages for invalid date ranges and future dates
-
-**Coming in future versions:**
-- SMI equities (v0.2.0)
-- Caching layer (v0.2.0)
-- Swiss government bonds (v0.3.0)
-- Real estate indices SWIIT (v0.4.0)
+-  **Robust error handling** — Clear messages for invalid date ranges and future dates
 
 ---
 
@@ -61,108 +56,110 @@ pip install swiss-finance-data
 ```
 
 **Requirements:** Python 3.10+
+
 > Requires internet access — data is fetched live from the official SNB API.
 
 ---
 
 ## Quick Start
 
-### Get current SNB policy rate
-
 ```python
-from swiss_finance import SNB
+from swiss_finance import SNB, FX
 
+# SNB Policy Rate
 rate = SNB.get_policy_rate()
 print(f"SNB Policy Rate: {rate}%")
-# Output: SNB Policy Rate: 0.0%
-```
 
-### Get historical rates
+# SARON — CHF risk-free rate (use in Sharpe ratio calculations)
+saron = SNB.get_saron()
+rf = saron / 100
+print(f"SARON: {saron}%")
 
-```python
-from swiss_finance import SNB
+# CHF Exchange Rates
+eur_chf = FX.get_rate("EUR")
+usd_chf = FX.get_rate("USD")
+print(f"EUR/CHF: {eur_chf}")
+print(f"USD/CHF: {usd_chf}")
 
-rates = SNB.get_historical_rates(start='2020-01')
-print(rates.tail())
-#                 rate
+# Historical data
+rates = SNB.get_historical_rates(start="2022-01")
+saron_hist = SNB.get_historical_saron(start="2022-01")
+fx_hist = FX.get_historical_rates("EUR", start="2022-01")
+print(fx_hist.tail())
+#                  rate
 # date
-# 2025-09-01      0.0
-# 2025-10-01      0.0
-# 2025-11-01      0.0
-# 2025-12-01      0.0
-# 2026-01-01      0.0
-```
-
-### Error handling
-
-```python
-from swiss_finance import SNB, SNBAPIError
-
-try:
-    rate = SNB.get_policy_rate()
-except SNBAPIError as e:
-    print(f"Failed to fetch data: {e}")
+# 2025-12-01  0.93313
+# 2026-01-01  0.92732
+# 2026-02-01  0.91406
 ```
 
 ---
 
 ## API Documentation
 
-### `SNB.get_policy_rate(provider='snb_official')`
+### SNB Policy Rate
 
-Get the current SNB policy rate.
-
-**Parameters:**
-- `provider` *(str, optional)*: Data provider to use. Default: `'snb_official'`
-
-**Returns:** `float` — Current policy rate (percentage)
-
-**Raises:**
-- `SNBAPIError` — If API call fails
-- `ProviderNotFoundError` — If provider doesn't exist
-
-**Example:**
 ```python
-rate = SNB.get_policy_rate()
+# Current rate
+SNB.get_policy_rate(provider='snb_official') -> float
+
+# Historical rates
+SNB.get_historical_rates(
+    start='YYYY-MM',  # optional
+    end='YYYY-MM',    # optional
+    provider='snb_official'
+) -> pd.DataFrame
+
+# List providers
+SNB.list_providers() -> list
 ```
 
----
+### SARON
 
-### `SNB.get_historical_rates(start=None, end=None, provider='snb_official')`
-
-Get historical SNB policy rates.
-
-**Parameters:**
-- `start` *(str, optional)*: Start date `YYYY-MM`
-- `end` *(str, optional)*: End date `YYYY-MM`
-- `provider` *(str, optional)*: Data provider to use. Default: `'snb_official'`
-
-**Returns:** `pandas.DataFrame` — Date index + `rate` column
-
-**Raises:**
-- `SNBAPIError` — If API call fails
-
-**Example:**
 ```python
-# Full history
-rates = SNB.get_historical_rates()
+# Current SARON rate
+SNB.get_saron() -> float
 
-# Specific range
-rates = SNB.get_historical_rates(start='2020-01', end='2024-12')
+# Historical SARON rates
+SNB.get_historical_saron(
+    start='YYYY-MM',  # optional
+    end='YYYY-MM'     # optional
+) -> pd.DataFrame
 ```
 
----
+### FX — CHF Exchange Rates
 
-### `SNB.list_providers()`
+Supported currencies: `EUR`, `USD`, `GBP`, `JPY`, `CAD`, `AUD`, `SEK`, `NOK`, `DKK`
 
-List available data providers.
-
-**Returns:** `list`
-
-**Example:**
 ```python
-SNB.list_providers()
-# ['snb_official']
+# Current rate
+FX.get_rate(currency='EUR') -> float
+
+# Historical rates
+FX.get_historical_rates(
+    currency='EUR',
+    start='YYYY-MM',  # optional
+    end='YYYY-MM'     # optional
+) -> pd.DataFrame
+
+# List supported currencies
+FX.list_currencies() -> list
+```
+
+### Error handling
+
+```python
+from swiss_finance import SNB, FX, SNBAPIError, DataValidationError
+
+try:
+    rate = SNB.get_policy_rate()
+except SNBAPIError as e:
+    print(f"Failed to fetch data: {e}")
+
+try:
+    rates = SNB.get_historical_rates(start='2030-01')
+except DataValidationError as e:
+    print(f"Invalid date range: {e}")
 ```
 
 ---
@@ -171,9 +168,11 @@ SNB.list_providers()
 
 All data sources are documented in [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
 
-| Source | Data | License |
-|--------|------|---------|
-| [Swiss National Bank](https://data.snb.ch/) | Policy rates (current + historical) | [SNB Open Data terms](https://www.snb.ch/en/srv/disclaimer_liability) |
+| Source | Dataset | License |
+|--------|---------|---------|
+| [Swiss National Bank](https://data.snb.ch/) | SNB Policy Rate | [SNB Open Data terms](https://www.snb.ch/en/srv/disclaimer_liability) |
+| [Swiss National Bank](https://data.snb.ch/) | SARON (monthly avg, 2009+) | [SNB Open Data terms](https://www.snb.ch/en/srv/disclaimer_liability) |
+| [Swiss National Bank](https://data.snb.ch/) | CHF FX Rates (monthly avg, 1999+) | [SNB Open Data terms](https://www.snb.ch/en/srv/disclaimer_liability) |
 
 ---
 
@@ -207,8 +206,8 @@ pytest --cov=swiss_finance tests/
 
 - [x] v0.1.0 — SNB policy rates
 - [x] v0.1.1 — Improved error handling and date validation
-- [ ] v0.2.0 — SARON + FX rates CHF + SMI equities
-- [ ] v0.3.0 — Swiss government bonds
+- [x] v0.2.0 — SARON + CHF FX rates
+- [ ] v0.3.0 — SMI equities + Swiss government bonds
 - [ ] v0.4.0 — Real estate indices (SWIIT)
 - [ ] v1.0.0 — Stable API, full documentation
 
@@ -224,5 +223,4 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 **Elie Menassa**
 - GitHub: [@EMen11](https://github.com/EMen11)
-- LinkedIn: [Elie Menassa](https://linkedin.com/in/elie-menassa)
 - Email: menassa.elie.dev@gmail.com

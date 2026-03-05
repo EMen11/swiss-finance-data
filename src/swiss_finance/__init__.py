@@ -1,8 +1,7 @@
-"""swiss-finance-data: Python package for Swiss financial data."""
-
-__version__ = "0.1.1"
+"""Swiss Finance Data — Official Swiss financial data for Python."""
 
 from .rates.snb import SNB
+from .fx.chf import FX
 from .core.exceptions import (
     SwissFinanceError,
     FetchError,
@@ -10,13 +9,11 @@ from .core.exceptions import (
     DataValidationError,
     ProviderNotFoundError,
 )
-from .core.providers import ProviderRegistry
-from .rates.providers.snb_official import SNBOfficialProvider
 
-ProviderRegistry.register("snb_official", SNBOfficialProvider)
-
+__version__ = "0.2.0"
 __all__ = [
     "SNB",
+    "FX",
     "SwissFinanceError",
     "FetchError",
     "SNBAPIError",
