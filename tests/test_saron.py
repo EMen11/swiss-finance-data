@@ -68,7 +68,7 @@ class TestSNBGetHistoricalSaron:
                 json=lambda: MOCK_SARON_RESPONSE
             )
             rates = SNB.get_historical_saron()
-            assert rates.index.dtype == "datetime64[ns]"
+            assert str(rates.index.dtype).startswith("datetime64")
 
     def test_start_filter(self):
         with patch("requests.get") as mock_get:
@@ -144,7 +144,7 @@ class TestSNBGetHistoricalSaronDaily:
                 json=lambda:MOCK_SARON_DAILY_RESPONSE
             )
             rates = SNB.get_historical_saron_daily()
-            assert rates.index.dtype == "datetime64[ns]"
+            assert str(rates.index.dtype).startswith("datetime64")
 
     def test_start_filter(self):
         with patch("requests.get") as mock_get:

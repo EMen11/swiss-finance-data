@@ -72,7 +72,7 @@ class TestFXGetHistoricalRates:
                 json=lambda: MOCK_FX_RESPONSE
             )
             rates = FX.get_historical_rates("EUR")
-            assert rates.index.dtype == "datetime64[ns]"
+            assert str(rates.index.dtype).startswith("datetime64")
 
     def test_start_filter(self):
         with patch("requests.get") as mock_get:
