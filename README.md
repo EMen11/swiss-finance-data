@@ -38,12 +38,14 @@ It does not aim to replace global data providers such as yfinance, but to comple
 
 ## Features
 
-**v0.2.0 — Available now:**
+**v0.4.0 — Available now:**
 -  **SNB Policy Rate** — Current and historical Swiss National Bank policy rates
--  **SARON** — Swiss Average Rate Overnight, the CHF risk-free reference rate (replaces LIBOR)
+-  **SARON** — Monthly average and daily fixing, the CHF risk-free reference rate (replaces LIBOR)
 -  **CHF FX Rates** — EUR, USD, GBP, JPY, CAD, AUD, SEK, NOK, DKK vs CHF
+- **Swiss CPI** — Consumer Price Index and YoY inflation rate (data since 1921)
+- **SMI Equities** — All 20 Swiss Market Index constituents, prices and returns
 -  **Provider Architecture** — Extensible system for multiple data sources
--  **Tested & documented** — 86% unit test coverage
+-  **Tested & documented** — 84% unit test coverage, 74 tests
 -  **Reliable** — Official Swiss government data sources, no scraping
 -  **Robust error handling** — Clear messages for invalid date ranges and future dates
 
@@ -57,40 +59,39 @@ pip install swiss-finance-data
 
 **Requirements:** Python 3.10+
 
-> Requires internet access — data is fetched live from the official SNB API.
+> Requires internet access — data is fetched live from official sources.
 
 ---
 
 ## Quick Start
 
 ```python
-from swiss_finance import SNB, FX
+from swiss_finance import SNB, FX, CPI, SMI
 
 # SNB Policy Rate
 rate = SNB.get_policy_rate()
 print(f"SNB Policy Rate: {rate}%")
 
-# SARON — CHF risk-free rate (use in Sharpe ratio calculations)
+# SARON — CHF risk-free rate (monthly and daily)
 saron = SNB.get_saron()
-rf = saron / 100
+rf_daily = SNB.get_saron_daily() / 100 / 252  # daily risk-free rate
 print(f"SARON: {saron}%")
 
 # CHF Exchange Rates
 eur_chf = FX.get_rate("EUR")
-usd_chf = FX.get_rate("USD")
 print(f"EUR/CHF: {eur_chf}")
-print(f"USD/CHF: {usd_chf}")
 
-# Historical data
-rates = SNB.get_historical_rates(start="2022-01")
-saron_hist = SNB.get_historical_saron(start="2022-01")
-fx_hist = FX.get_historical_rates("EUR", start="2022-01")
-print(fx_hist.tail())
-#                  rate
-# date
-# 2025-12-01  0.93313
-# 2026-01-01  0.92732
-# 2026-02-01  0.91406
+# Swiss CPI and inflation
+inflation = CPI.get_inflation_yoy()
+print(f"Inflation YoY: {inflation.iloc[-1, 0]:.2f}%")
+
+# SMI equities
+prices = SMI.get_prices()           # current prices for all 20 constituents
+returns = SMI.get_returns(period="1y")  # daily returns
+hist = SMI.get_historical_prices(
+    tickers=["NESN.SW", "ROG.SW", "NOVN.SW"],
+    start="2023-01-01"
+)
 ```
 
 ---
@@ -100,31 +101,18 @@ print(fx_hist.tail())
 ### SNB Policy Rate
 
 ```python
-# Current rate
 SNB.get_policy_rate(provider='snb_official') -> float
-
-# Historical rates
-SNB.get_historical_rates(
-    start='YYYY-MM',  # optional
-    end='YYYY-MM',    # optional
-    provider='snb_official'
-) -> pd.DataFrame
-
-# List providers
+SNB.get_historical_rates(start='YYYY-MM', end='YYYY-MM') -> pd.DataFrame
 SNB.list_providers() -> list
 ```
 
 ### SARON
 
 ```python
-# Current SARON rate
-SNB.get_saron() -> float
-
-# Historical SARON rates
-SNB.get_historical_saron(
-    start='YYYY-MM',  # optional
-    end='YYYY-MM'     # optional
-) -> pd.DataFrame
+SNB.get_saron() -> float                                        # monthly average
+SNB.get_historical_saron(start='YYYY-MM', end='YYYY-MM') -> pd.DataFrame
+SNB.get_saron_daily() -> float                                  # latest daily fixing
+SNB.get_historical_saron_daily(start='YYYY-MM-DD', end='YYYY-MM-DD') -> pd.DataFrame
 ```
 
 ### FX — CHF Exchange Rates
@@ -132,24 +120,39 @@ SNB.get_historical_saron(
 Supported currencies: `EUR`, `USD`, `GBP`, `JPY`, `CAD`, `AUD`, `SEK`, `NOK`, `DKK`
 
 ```python
-# Current rate
 FX.get_rate(currency='EUR') -> float
-
-# Historical rates
-FX.get_historical_rates(
-    currency='EUR',
-    start='YYYY-MM',  # optional
-    end='YYYY-MM'     # optional
-) -> pd.DataFrame
-
-# List supported currencies
+FX.get_historical_rates(currency='EUR', start='YYYY-MM', end='YYYY-MM') -> pd.DataFrame
 FX.list_currencies() -> list
 ```
+
+### CPI — Swiss Consumer Price Index
+
+```python
+CPI.get_current() -> float                                      # latest index value
+CPI.get_historical(start='YYYY-MM', end='YYYY-MM') -> pd.DataFrame
+CPI.get_inflation_yoy(start='YYYY-MM', end='YYYY-MM') -> pd.DataFrame
+```
+
+### SMI — Swiss Market Index Equities
+
+```python
+SMI.get_constituents() -> dict                                  # {ticker: company_name}
+SMI.get_prices() -> pd.DataFrame                                # current prices, all 20
+SMI.get_historical_prices(
+    tickers=['NESN.SW', 'ROG.SW'],  # optional, default: all 20
+    period='1y',                     # ignored if start/end provided
+    start='YYYY-MM-DD',
+    end='YYYY-MM-DD'
+) -> pd.DataFrame
+SMI.get_returns(tickers=None, period='1y', start=None, end=None) -> pd.DataFrame
+```
+
+**SMI constituents:** NESN, ROG, NOVN, UBSG, ZURN, ABBN, SREN, GIVN, LONN, SIKA, GEBN, SLHN, SCMN, HOLN, PGHN, CFR, ALC, SDZ, STMN, VACN
 
 ### Error handling
 
 ```python
-from swiss_finance import SNB, FX, SNBAPIError, DataValidationError
+from swiss_finance import SNB, FX, CPI, SMI, SNBAPIError, DataValidationError
 
 try:
     rate = SNB.get_policy_rate()
@@ -166,13 +169,14 @@ except DataValidationError as e:
 
 ## Data Sources
 
-All data sources are documented in [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
-
 | Source | Dataset | License |
 |--------|---------|---------|
 | [Swiss National Bank](https://data.snb.ch/) | SNB Policy Rate | [SNB Open Data terms](https://www.snb.ch/en/srv/disclaimer_liability) |
-| [Swiss National Bank](https://data.snb.ch/) | SARON (monthly avg, 2009+) | [SNB Open Data terms](https://www.snb.ch/en/srv/disclaimer_liability) |
-| [Swiss National Bank](https://data.snb.ch/) | CHF FX Rates (monthly avg, 1999+) | [SNB Open Data terms](https://www.snb.ch/en/srv/disclaimer_liability) |
+| [Swiss National Bank](https://data.snb.ch/) | SARON monthly avg (2009+) | [SNB Open Data terms](https://www.snb.ch/en/srv/disclaimer_liability) |
+| [Swiss National Bank](https://data.snb.ch/) | SARON daily fixing (2009+) | [SNB Open Data terms](https://www.snb.ch/en/srv/disclaimer_liability) |
+| [Swiss National Bank](https://data.snb.ch/) | CHF FX Rates (monthly, 1999+) | [SNB Open Data terms](https://www.snb.ch/en/srv/disclaimer_liability) |
+| [Swiss National Bank](https://data.snb.ch/) | Swiss CPI (monthly, 1921+) | [SNB Open Data terms](https://www.snb.ch/en/srv/disclaimer_liability) |
+| [Yahoo Finance](https://finance.yahoo.com/) | SMI equities (via yfinance) | Yahoo Finance ToS |
 
 ---
 
@@ -206,10 +210,17 @@ pytest --cov=swiss_finance tests/
 
 - [x] v0.1.0 — SNB policy rates
 - [x] v0.1.1 — Improved error handling and date validation
-- [x] v0.2.0 — SARON + CHF FX rates
-- [ ] v0.3.0 — SMI equities + Swiss government bonds
-- [ ] v0.4.0 — Real estate indices (SWIIT)
+- [x] v0.2.0 — SARON monthly + CHF FX rates
+- [x] v0.3.0 — SARON daily + Swiss CPI + inflation
+- [x] v0.4.0 — SMI equities (20 constituents, prices, returns)
+- [ ] v0.5.0 — Swiss government bonds
 - [ ] v1.0.0 — Stable API, full documentation
+
+---
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for full version history.
 
 ---
 

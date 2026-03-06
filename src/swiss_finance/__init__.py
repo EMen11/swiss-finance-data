@@ -3,6 +3,7 @@
 from .rates.snb import SNB
 from .fx.chf import FX
 from .macro.cpi import CPI
+from .equities.smi import SMI
 from .core.exceptions import (
     SwissFinanceError,
     FetchError,
@@ -11,11 +12,12 @@ from .core.exceptions import (
     ProviderNotFoundError,
 )
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 __all__ = [
     "SNB",
     "FX",
     "CPI",
+    "SMI",
     "SwissFinanceError",
     "FetchError",
     "SNBAPIError",
