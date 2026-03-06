@@ -75,11 +75,17 @@ class SNB:
         """
         Get current SARON monthly average.
 
-        The SARON is the risk-free reference rate for CHF,
-        replacing LIBOR CHF since 2021.
+        The SARON is the CHF risk-free reference rate, replacing LIBOR CHF since 2021.
+
+        Args:
+            provider: Data provider to use (default: 'saron')
 
         Returns:
             Current SARON monthly average (percentage)
+
+        Raises:
+            SNBAPIError: If the SNB API call fails
+            FetchError: If the API is unavailable after retries
 
         Example:
             >>> from swiss_finance import SNB
@@ -102,6 +108,10 @@ class SNB:
 
         Returns:
             DataFrame with date index and 'rate' column
+
+        Raises:
+            ValueError: If start > end
+            SNBAPIError: If the SNB API call fails
 
         Example:
             >>> from swiss_finance import SNB
@@ -152,6 +162,10 @@ class SNB:
         Returns:
             DataFrame with date index and 'rate' column (business days only)
 
+        Raises:
+            ValueError: If start > end
+            SNBAPIError: If the SNB API call fails
+
         Example:
             >>> from swiss_finance import SNB
             >>> saron = SNB.get_historical_saron_daily(start='2024-01-01')
@@ -169,5 +183,15 @@ class SNB:
 
     @staticmethod
     def list_providers() -> list:
-        """List available SNB data providers."""
+        """
+        List all registered SNB data providers.
+
+        Returns:
+            List of provider name strings
+
+        Example:
+            >>> from swiss_finance import SNB
+            >>> SNB.list_providers()
+            ['snb_official', 'saron']
+        """
         return ProviderRegistry.list_providers()

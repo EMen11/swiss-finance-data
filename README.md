@@ -38,7 +38,7 @@ It does not aim to replace global data providers such as yfinance, but to comple
 
 ## Features
 
-**v0.5.0 — Available now:**
+**v1.0.0 — Stable public API:**
 -  **SNB Policy Rate** — Current and historical Swiss National Bank policy rates
 -  **SARON** — Monthly average and daily fixing, the CHF risk-free reference rate (replaces LIBOR)
 -  **CHF FX Rates** — EUR, USD, GBP, JPY, CAD, AUD, SEK, NOK, DKK vs CHF
@@ -158,7 +158,7 @@ SMI.get_returns(tickers=None, period='1y', start=None, end=None) -> pd.DataFrame
 ### Bonds — Swiss Confederation Bond Yields
 
 ```python
-Bonds.list_maturities() -> list                             # ['2y', '3y', ..., '30y']
+Bonds.list_maturities() -> list                             # ['1y', '2y', ..., '30y']
 Bonds.get_yield(maturity='10y') -> float                    # latest yield in %
 Bonds.get_yield_curve() -> pd.DataFrame                     # one row, all maturities
 Bonds.get_historical_yields(
@@ -243,8 +243,8 @@ pytest --cov=swiss_finance tests/
 - [x] v0.2.0 — SARON monthly + CHF FX rates
 - [x] v0.3.0 — SARON daily + Swiss CPI + inflation
 - [x] v0.4.0 — SMI equities (20 constituents, prices, returns)
-- [x] v0.5.0 — Swiss Confederation bond yields (12 maturities, yield curve)
-- [ ] v1.0.0 — Stable API, full documentation
+- [x] v0.5.0 — Swiss Confederation bond yields (13 maturities, yield curve)
+- [x] v1.0.0 — Stable public API, full documentation (CONTRIBUTING, DATA_SOURCES)
 
 ---
 

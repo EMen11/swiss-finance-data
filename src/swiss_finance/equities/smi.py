@@ -87,8 +87,18 @@ class SMI:
         """
         Get daily returns for SMI constituents.
 
+        Args:
+            tickers: List of tickers (default: all 20 SMI constituents)
+            period: Period string e.g. "1y", "6mo", "2y" (ignored if start/end provided)
+            start: Start date (YYYY-MM-DD), optional
+            end: End date (YYYY-MM-DD), optional
+
         Returns:
-            DataFrame with date index and ticker columns (daily % returns)
+            DataFrame with date index and ticker columns (daily % returns as decimals)
+
+        Raises:
+            ValueError: If unknown tickers provided or start > end
+            FetchError: If data fetch fails
 
         Example:
             >>> from swiss_finance import SMI, SNB

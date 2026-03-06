@@ -5,6 +5,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.0.0] - 2026-03-06
+
+### Added
+- `docs/CONTRIBUTING.md` — developer guide: setup, test, add provider, code style, PR checklist
+- `docs/DATA_SOURCES.md` — complete documentation for all 7 verified data sources
+
+### Changed
+- Stable public API — all modules complete, backward compatibility guaranteed from this version
+- Full docstrings on all public methods (Args, Returns, Raises, Example)
+
+---
+
 ## [0.5.0] - 2026-03-06
 
 ### Added

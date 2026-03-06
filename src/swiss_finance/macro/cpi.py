@@ -19,6 +19,9 @@ class CPI:
         Returns:
             Latest CPI index value (December 2020 = 100)
 
+        Raises:
+            SNBAPIError: If the SNB API call fails
+
         Example:
             >>> from swiss_finance import CPI
             >>> cpi = CPI.get_current()
@@ -38,6 +41,10 @@ class CPI:
 
         Returns:
             DataFrame with date index and cpi column
+
+        Raises:
+            ValueError: If start > end
+            SNBAPIError: If the SNB API call fails
 
         Example:
             >>> from swiss_finance import CPI
@@ -60,6 +67,10 @@ class CPI:
 
         Returns:
             DataFrame with date index and inflation_yoy column (percentage)
+
+        Raises:
+            ValueError: If start > end
+            SNBAPIError: If the SNB API call fails
 
         Example:
             >>> from swiss_finance import CPI

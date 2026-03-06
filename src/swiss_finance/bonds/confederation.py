@@ -31,11 +31,15 @@ class Bonds:
         Get the latest yield for a given Swiss Confederation bond maturity.
 
         Args:
-            maturity: Bond maturity, e.g. '2y', '5y', '10y', '30y'.
-                      Default: '10y'.
+            maturity: Bond maturity, e.g. '1y', '2y', '5y', '10y', '30y'. Default: '10y'.
+            provider: Data provider (default: 'snb_bonds')
 
         Returns:
             Yield in percent (e.g. 0.85 means 0.85%)
+
+        Raises:
+            ValueError: If maturity is not in the available list
+            SNBAPIError: If the SNB API call fails
 
         Example:
             >>> from swiss_finance import Bonds
@@ -53,7 +57,10 @@ class Bonds:
 
         Returns:
             DataFrame with one row (latest date) and one column per maturity.
-            Columns are '2y', '3y', ..., '30y'. Values are yields in percent.
+            Columns are '1y', '2y', ..., '30y'. Values are yields in percent.
+
+        Raises:
+            SNBAPIError: If the SNB API call fails
 
         Example:
             >>> from swiss_finance import Bonds
@@ -81,6 +88,10 @@ class Bonds:
 
         Returns:
             DataFrame with date index and maturity column(s). Values in percent.
+
+        Raises:
+            ValueError: If maturity is unknown or start > end
+            SNBAPIError: If the SNB API call fails
 
         Example:
             >>> from swiss_finance import Bonds

@@ -13,7 +13,7 @@ from .core.exceptions import (
     ProviderNotFoundError,
 )
 
-__version__ = "0.5.0"
+__version__ = "1.0.0"
 __all__ = [
     "SNB",
     "FX",

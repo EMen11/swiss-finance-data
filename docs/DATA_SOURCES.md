@@ -1,13 +1,12 @@
 # Data Sources
 
-> ⚠️ Ce fichier documente UNIQUEMENT les sources vérifiées manuellement.
-> Ne pas coder un provider sans avoir complété sa section ici.
+> This file documents all verified data sources used in swiss-finance-data v1.0.0.
 
 ---
 
-## Swiss National Bank (SNB) — Policy Rates
+## 1. SNB Policy Rate
 
-**Status:** ✅ Vérifié le 2026-03-03
+**Status:** ✅ Verified 2026-03-03
 
 ### Endpoint
 
@@ -79,61 +78,211 @@ Le cube `snboffzisa` contient aussi (gratuit, même endpoint) :
 | BoE (UK)        | `L0`   | Bank of England - Bank rate          |
 | BoJ (Japan)     | `L1`   | Uncollateralized overnight call rate |
 
-→ **Opportunité v0.2.0 :** exposer les taux des autres banques centrales sans changer de source.
+### License
 
-### Filtre par dim (optionnel)
-
-Pour ne récupérer que le taux SNB :
-```
-?dimSel=D0(LZ)
-```
-
-### Licence
-
-- **Source :** Swiss National Bank — portail officiel data.snb.ch
-- **Type :** Swiss Federal Open Government Data
-- ✅ Usage gratuit
-- ✅ Redistribution commerciale autorisée
-- ✅ Attribution source requise : "Source: Swiss National Bank (data.snb.ch)"
-- Ref légale : https://www.snb.ch/en/srv/disclaimer_liability
-
-### Stabilité
-
-| Critère           | Évaluation                              |
-|-------------------|-----------------------------------------|
-| Source            | Banque centrale officielle              |
-| Risque downtime   | Très faible                             |
-| Risque breaking change | Faible (API mature, versionnée)    |
-| Maintenance       | SNB (institution permanente)            |
-
-### Stratégie de fallback
-
-- Si API indisponible → lever `SNBAPIError` avec message clair
-- **Pas de scraping backup** (fragile, contre les principes du projet)
-- Message d'erreur : `"SNB API unavailable. Check https://data.snb.ch or try later."`
-
-### Corrections vs plan initial
-
-| Plan initial (faux)                                    | Réalité vérifiée                                          |
-|--------------------------------------------------------|-----------------------------------------------------------|
-| Cube : `snbpol`                                        | Cube : `snboffzisa`                                       |
-| Endpoint : `.../data/json`                             | Endpoint : `.../data/json/en`                             |
-| Format réponse : `{"observations": [...]}`             | Format réponse : `{"timeseries": [{"values": [...]}]}`    |
-| Clés : `obs["date"]`, `obs["value"]`                   | Identique ✅ (`val["date"]`, `val["value"]`)               |
-| Parse path : `data["observations"]`                    | Parse path : `data["timeseries"][0]["values"]`            |
-| Format date : `YYYY-MM-DD`                             | Format date : `YYYY-MM`                                   |
+Swiss National Bank — Swiss Federal Open Government Data.
+Free use, commercial redistribution allowed, attribution required.
+Ref: https://www.snb.ch/en/srv/disclaimer_liability
 
 ---
 
-## Sources futures (non vérifiées — ne pas coder)
+## 2. SARON Monthly Average
 
-| Module          | Source envisagée         | Status         | Version cible |
-|-----------------|--------------------------|----------------|---------------|
-| SMI Equities    | À déterminer             | ⏳ Non vérifié  | v0.2.0        |
-| Swiss Bonds     | À déterminer             | ⏳ Non vérifié  | v0.3.0        |
-| Real Estate     | SWIIT / À déterminer     | ⏳ Non vérifié  | v0.4.0        |
-| SARON           | `zimoma` cube (SNB)      | ⏳ À tester     | v0.2.0        |
+**Status:** ✅ Verified 2026-03-05 | Cube: `zimoma`
+
+### Endpoint
+
+```
+https://data.snb.ch/api/cube/zimoma/data/json/en?dimSel=D0(SARON)
+```
+
+### Response structure
+
+Same `timeseries[].values[]` format as SNB policy rate.
+`{"date": "YYYY-MM", "value": float}`
+
+### Characteristics
+
+| Property      | Value                     |
+|---------------|---------------------------|
+| Frequency     | Monthly (P1M)             |
+| History       | Since 2009-06             |
+| Unit          | Percent                   |
+| Dim filter    | `D0(SARON)`               |
+
+### License
+
+Same as SNB policy rate — Swiss Federal Open Government Data.
 
 ---
 
-*Dernière mise à jour : 2026-03-03*
+## 3. SARON Daily Fixing
+
+**Status:** ✅ Verified 2026-03-05 | Cube: `snbgwdzid`
+
+### Endpoint
+
+```
+https://data.snb.ch/api/cube/snbgwdzid/data/json/en?dimSel=D0(SARON)
+https://data.snb.ch/api/cube/snbgwdzid/data/json/en?dimSel=D0(SARON)&fromDate=2024-01-01&toDate=2024-12-31
+```
+
+### Response structure
+
+Same format — `{"date": "YYYY-MM-DD", "value": float}` — business days only.
+
+### Characteristics
+
+| Property      | Value                             |
+|---------------|-----------------------------------|
+| Frequency     | Daily (P1D), business days only   |
+| History       | Since 2009-06-22                  |
+| Unit          | Percent                           |
+| Dim filter    | `D0(SARON)`                       |
+
+### License
+
+Same as SNB policy rate — Swiss Federal Open Government Data.
+
+---
+
+## 4. CHF FX Rates
+
+**Status:** ✅ Verified 2026-03-05 | Cube: `devkum`
+
+### Endpoint
+
+```
+https://data.snb.ch/api/cube/devkum/data/json/en?dimSel=D0(EUR,USD,GBP,JPY,CAD,AUD,SEK,NOK,DKK)
+```
+
+### Response structure
+
+Multiple timeseries, one per currency. Currency code is identified via `dimItem` header.
+`{"date": "YYYY-MM", "value": float}` — units of currency per 1 CHF.
+
+### Supported currencies
+
+`EUR`, `USD`, `GBP`, `JPY`, `CAD`, `AUD`, `SEK`, `NOK`, `DKK`
+
+### Characteristics
+
+| Property      | Value                                    |
+|---------------|------------------------------------------|
+| Frequency     | Monthly (P1M)                            |
+| History       | Since 1999-01 (EUR), varies by pair      |
+| Unit          | Foreign currency units per 1 CHF         |
+
+### License
+
+Same as SNB policy rate — Swiss Federal Open Government Data.
+
+---
+
+## 5. Swiss CPI (Consumer Price Index)
+
+**Status:** ✅ Verified 2026-03-05 | Cube: `plkopr`
+
+### Endpoint
+
+```
+https://data.snb.ch/api/cube/plkopr/data/json/en
+```
+
+### Response structure
+
+Single timeseries. `{"date": "YYYY-MM", "value": float}` — index value (Dec 2020 = 100).
+
+### Characteristics
+
+| Property      | Value                        |
+|---------------|------------------------------|
+| Frequency     | Monthly (P1M)                |
+| History       | Since 1921-01                |
+| Unit          | Index (December 2020 = 100)  |
+
+### License
+
+Same as SNB policy rate — Swiss Federal Open Government Data.
+
+---
+
+## 6. Swiss Confederation Bond Yields
+
+**Status:** ✅ Verified 2026-03-06 | Cube: `rendoblid`
+
+### Endpoint
+
+```
+https://data.snb.ch/api/cube/rendoblid/data/json/en
+```
+
+No `dimSel` needed — all 22 series are fetched and filtered client-side.
+
+### Response structure
+
+22 timeseries total. The 13 relevant ones (Confederation bonds) are identified by matching
+`"CHF Swiss Confederation bond issues"` in the `dimItem` header field.
+Maturity is extracted from the text suffix via regex `r'(\d+) years?$'`.
+
+```json
+{
+  "timeseries": [{
+    "header": [{"dimItem": "Spot interest rates ... - CHF Swiss Confederation bond issues - 10 years"}],
+    "values": [{"date": "YYYY-MM-DD", "value": 0.378}]
+  }]
+}
+```
+
+### Available maturities
+
+1y, 2y, 3y, 4y, 5y, 6y, 7y, 8y, 9y, 10y, 15y, 20y, 30y
+
+### Characteristics
+
+| Property      | Value                                         |
+|---------------|-----------------------------------------------|
+| Frequency     | Monthly (P1M)                                 |
+| History       | Since mid-1990s (varies by maturity)          |
+| Unit          | Percent (spot interest rate)                  |
+
+### Parsing note
+
+`dimSel` with short codes (`Y10` etc.) does NOT work for this cube.
+Use full fetch without `dimSel` and filter by `dimItem` text.
+
+### License
+
+Same as SNB policy rate — Swiss Federal Open Government Data.
+
+---
+
+## 7. SMI Equities
+
+**Status:** ✅ Verified 2026-03-05 | Source: Yahoo Finance (via `yfinance`)
+
+### Tickers
+
+20 SMI constituents with `.SW` suffix:
+`NESN.SW`, `ROG.SW`, `NOVN.SW`, `UBSG.SW`, `ZURN.SW`, `ABBN.SW`,
+`SREN.SW`, `GIVN.SW`, `LONN.SW`, `SIKA.SW`, `GEBN.SW`, `SLHN.SW`,
+`SCMN.SW`, `HOLN.SW`, `PGHN.SW`, `CFR.SW`, `ALC.SW`, `SDZ.SW`,
+`STMN.SW`, `VACN.SW`
+
+### Characteristics
+
+| Property      | Value                                |
+|---------------|--------------------------------------|
+| Frequency     | Daily (business days)                |
+| History       | Varies by ticker (~10+ years)        |
+| Unit          | CHF (adjusted closing price)         |
+| Auth required | No                                   |
+
+### License
+
+Yahoo Finance Terms of Service — personal/research use.
+Not for commercial redistribution of raw data.
+
+---
+
+*Last updated: 2026-03-06*
