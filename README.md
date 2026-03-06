@@ -38,14 +38,14 @@ It does not aim to replace global data providers such as yfinance, but to comple
 
 ## Features
 
-**v0.4.0 — Available now:**
+**v0.5.0 — Available now:**
 -  **SNB Policy Rate** — Current and historical Swiss National Bank policy rates
 -  **SARON** — Monthly average and daily fixing, the CHF risk-free reference rate (replaces LIBOR)
 -  **CHF FX Rates** — EUR, USD, GBP, JPY, CAD, AUD, SEK, NOK, DKK vs CHF
 - **Swiss CPI** — Consumer Price Index and YoY inflation rate (data since 1921)
 - **SMI Equities** — All 20 Swiss Market Index constituents, prices and returns
+- **Swiss Confederation Bonds** — Yield curve and historical yields, 13 maturities (1y–30y)
 -  **Provider Architecture** — Extensible system for multiple data sources
--  **Tested & documented** — 84% unit test coverage, 74 tests
 -  **Reliable** — Official Swiss government data sources, no scraping
 -  **Robust error handling** — Clear messages for invalid date ranges and future dates
 
@@ -66,7 +66,7 @@ pip install swiss-finance-data
 ## Quick Start
 
 ```python
-from swiss_finance import SNB, FX, CPI, SMI
+from swiss_finance import SNB, FX, CPI, SMI, Bonds
 
 # SNB Policy Rate
 rate = SNB.get_policy_rate()
@@ -92,6 +92,12 @@ hist = SMI.get_historical_prices(
     tickers=["NESN.SW", "ROG.SW", "NOVN.SW"],
     start="2023-01-01"
 )
+
+# Swiss Confederation bond yields
+yield_10y = Bonds.get_yield("10y")
+print(f"10y Confederation bond: {yield_10y:.2f}%")
+curve = Bonds.get_yield_curve()                           # full yield curve (latest)
+hist_bonds = Bonds.get_historical_yields(maturity="10y", start="2020-01-01")
 ```
 
 ---
@@ -149,6 +155,21 @@ SMI.get_returns(tickers=None, period='1y', start=None, end=None) -> pd.DataFrame
 
 **SMI constituents:** NESN, ROG, NOVN, UBSG, ZURN, ABBN, SREN, GIVN, LONN, SIKA, GEBN, SLHN, SCMN, HOLN, PGHN, CFR, ALC, SDZ, STMN, VACN
 
+### Bonds — Swiss Confederation Bond Yields
+
+```python
+Bonds.list_maturities() -> list                             # ['2y', '3y', ..., '30y']
+Bonds.get_yield(maturity='10y') -> float                    # latest yield in %
+Bonds.get_yield_curve() -> pd.DataFrame                     # one row, all maturities
+Bonds.get_historical_yields(
+    maturity='10y',          # optional, returns all maturities if omitted
+    start='YYYY-MM-DD',
+    end='YYYY-MM-DD'
+) -> pd.DataFrame
+```
+
+**Available maturities:** 1y, 2y, 3y, 4y, 5y, 6y, 7y, 8y, 9y, 10y, 15y, 20y, 30y
+
 ### Error handling
 
 ```python
@@ -176,7 +197,16 @@ except DataValidationError as e:
 | [Swiss National Bank](https://data.snb.ch/) | SARON daily fixing (2009+) | [SNB Open Data terms](https://www.snb.ch/en/srv/disclaimer_liability) |
 | [Swiss National Bank](https://data.snb.ch/) | CHF FX Rates (monthly, 1999+) | [SNB Open Data terms](https://www.snb.ch/en/srv/disclaimer_liability) |
 | [Swiss National Bank](https://data.snb.ch/) | Swiss CPI (monthly, 1921+) | [SNB Open Data terms](https://www.snb.ch/en/srv/disclaimer_liability) |
+| [Swiss National Bank](https://data.snb.ch/) | Confederation bond yields (monthly, 13 maturities) | [SNB Open Data terms](https://www.snb.ch/en/srv/disclaimer_liability) |
 | [Yahoo Finance](https://finance.yahoo.com/) | SMI equities (via yfinance) | Yahoo Finance ToS |
+
+---
+
+## Examples
+
+| Notebook | Description |
+|----------|-------------|
+| [Markowitz SMI Optimisation](examples/markowitz_smi_optimization.ipynb) | Mean-variance portfolio optimisation on SMI constituents using SARON as risk-free rate |
 
 ---
 
@@ -213,7 +243,7 @@ pytest --cov=swiss_finance tests/
 - [x] v0.2.0 — SARON monthly + CHF FX rates
 - [x] v0.3.0 — SARON daily + Swiss CPI + inflation
 - [x] v0.4.0 — SMI equities (20 constituents, prices, returns)
-- [ ] v0.5.0 — Swiss government bonds
+- [x] v0.5.0 — Swiss Confederation bond yields (12 maturities, yield curve)
 - [ ] v1.0.0 — Stable API, full documentation
 
 ---

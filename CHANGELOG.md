@@ -5,6 +5,15 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.5.0] - 2026-03-06
+
+### Added
+- Swiss Confederation bond yields (`Bonds.get_yield`, `Bonds.get_yield_curve`, `Bonds.get_historical_yields`)
+- 13 standard maturities: 1y, 2y, 3y, 4y, 5y, 6y, 7y, 8y, 9y, 10y, 15y, 20y, 30y
+- Data sourced from SNB official API (`rendoblid` cube)
+
+---
+
 ## [0.3.0] - 2026-03-05
 
 ### Added
