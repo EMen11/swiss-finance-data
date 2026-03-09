@@ -8,6 +8,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/pypi/pyversions/swiss-finance-data.svg)](https://pypi.org/project/swiss-finance-data/)
 [![Downloads](https://static.pepy.tech/badge/swiss-finance-data)](https://pepy.tech/project/swiss-finance-data)
+[![Documentation](https://img.shields.io/badge/docs-online-blue.svg)](https://emen11.github.io/swiss-finance-data)
 
 ---
 
@@ -20,6 +21,8 @@ swiss-finance-data aims to provide:
 - Official government data sources — no scraping
 - Extensible provider architecture
 - Long-term maintainability
+
+**[Full documentation →](https://emen11.github.io/swiss-finance-data)**
 
 ---
 
@@ -54,7 +57,8 @@ It does not aim to replace global data providers such as yfinance, but to comple
 ## Installation
 
 ```bash
-pip install swiss-finance-data
+
+
 ```
 
 **Requirements:** Python 3.10+
