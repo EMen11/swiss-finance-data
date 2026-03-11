@@ -75,7 +75,7 @@ class TestCPIGetHistorical:
                 json=lambda: MOCK_CPI_RESPONSE
             )
             hist = CPI.get_historical()
-            assert str(hist.index.dtype).startswith("datetime64")
+            assert hist.index.dtype == "datetime64[ns]"
 
     def test_start_filter(self):
         with patch("requests.get") as mock_get:
