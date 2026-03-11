@@ -33,3 +33,6 @@ Thumbs.db
 # Distribution
 dist/
 build/
+
+# Claude Code
+.claude/
