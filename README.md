@@ -54,6 +54,18 @@ It does not aim to replace global data providers such as yfinance, but to comple
 
 ---
 
+## MCP Server
+
+swiss-finance-data exposes all its data as an **MCP (Model Context Protocol) server**, making Swiss financial data directly accessible to AI assistants.
+
+**18 tools available**, covering the full API: SNB policy rate, SARON, CHF FX rates, Swiss CPI, SMI equities, and Swiss Confederation bond yields.
+
+**Compatible with:** Claude Code, Cursor, and any MCP-compatible client.
+
+See [mcp/README.md](mcp/README.md) for installation instructions and tool reference.
+
+---
+
 ## Installation
 
 ```bash

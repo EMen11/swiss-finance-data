@@ -5,6 +5,15 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.1.0] - 2026-03-11
+
+### Added
+- MCP server exposing all 18 swiss-finance-data tools via the Model Context Protocol
+- Compatible with Claude Code, Cursor, and any MCP-compatible client
+- Installation instructions and tool reference in `mcp/README.md`
+
+---
+
 ## [1.0.0] - 2026-03-06
 
 ### Added

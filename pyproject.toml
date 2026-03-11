@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "swiss-finance-data"
-version = "1.0.0"
+version = "1.1.0"
 description = "Python package for Swiss financial data"
 readme = "README.md"
 authors = [
@@ -36,7 +36,9 @@ dev = [
 
 [project.urls]
 Homepage = "https://github.com/EMen11/swiss-finance-data"
+Documentation = "https://emen11.github.io/swiss-finance-data"
 Repository = "https://github.com/EMen11/swiss-finance-data"
+Changelog = "https://github.com/EMen11/swiss-finance-data/blob/main/CHANGELOG.md"
 "Bug Tracker" = "https://github.com/EMen11/swiss-finance-data/issues"
 
 [tool.setuptools.packages.find]
