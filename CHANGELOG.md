@@ -7,9 +7,13 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [1.1.1] - 2026-03-11
 
+### Added
+- MCP server with 18 tools for AI assistant integration (Claude Code, Cursor)
+- Full MkDocs documentation site on GitHub Pages
+- GitHub Release v1.0.0 published
+
 ### Fixed
-- README installation section: added `pip install swiss-finance-data` command
-- README features label updated to reflect current version
+- datetime64 compatibility with pandas 2.x in CPI tests
 
 ---
 

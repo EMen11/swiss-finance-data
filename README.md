@@ -260,6 +260,7 @@ pytest --cov=swiss_finance tests/
 - [x] v0.4.0 — SMI equities (20 constituents, prices, returns)
 - [x] v0.5.0 — Swiss Confederation bond yields (13 maturities, yield curve)
 - [x] v1.0.0 — Stable public API, full documentation (CONTRIBUTING, DATA_SOURCES)
+- [x] v1.1.1 — MCP server (18 tools), MkDocs documentation, pandas 2.x fix
 
 ---
 
