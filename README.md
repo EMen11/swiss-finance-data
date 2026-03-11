@@ -41,7 +41,7 @@ It does not aim to replace global data providers such as yfinance, but to comple
 
 ## Features
 
-**v1.0.0 — Stable public API:**
+**v1.1.1 — Stable public API + MCP Server:**
 -  **SNB Policy Rate** — Current and historical Swiss National Bank policy rates
 -  **SARON** — Monthly average and daily fixing, the CHF risk-free reference rate (replaces LIBOR)
 -  **CHF FX Rates** — EUR, USD, GBP, JPY, CAD, AUD, SEK, NOK, DKK vs CHF
@@ -69,8 +69,7 @@ See [mcp/README.md](mcp/README.md) for installation instructions and tool refere
 ## Installation
 
 ```bash
-
-
+pip install swiss-finance-data
 ```
 
 **Requirements:** Python 3.10+

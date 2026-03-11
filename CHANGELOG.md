@@ -5,6 +5,14 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.1.1] - 2026-03-11
+
+### Fixed
+- README installation section: added `pip install swiss-finance-data` command
+- README features label updated to reflect current version
+
+---
+
 ## [1.1.0] - 2026-03-11
 
 ### Added

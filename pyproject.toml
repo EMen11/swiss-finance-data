@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "swiss-finance-data"
-version = "1.1.0"
+version = "1.1.1"
 description = "Python package for Swiss financial data"
 readme = "README.md"
 authors = [
