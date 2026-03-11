@@ -35,6 +35,7 @@ nav:
     - CPI & Inflation: api/cpi.md
     - SMI Equities: api/smi.md
     - Bonds: api/bonds.md
+  - MCP Server: mcp.md
   - Examples: examples.md
   - Changelog: changelog.md
   - Contributing: contributing.md

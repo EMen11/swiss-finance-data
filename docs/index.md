@@ -76,9 +76,19 @@ curve = Bonds.get_yield_curve()
 
 ---
 
+## MCP Server
+
+**v1.1.1** ships an MCP (Model Context Protocol) server — Swiss financial data is now directly accessible to AI assistants.
+
+**18 tools** covering the full API, compatible with Claude Code and Cursor.
+
+→ [MCP Server documentation](mcp.md)
+
+---
+
 ## API Stability
 
-- **v1.0+** — Stable public API, backward compatibility guaranteed
+- **v1.1.1** — Stable public API + MCP Server
 - Versioning follows [Semantic Versioning](https://semver.org/)
 
 See the [Changelog](changelog.md) for full version history.
