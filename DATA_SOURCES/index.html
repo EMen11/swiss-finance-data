@@ -1,0 +1,1688 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Python package for Swiss financial data — official sources, clean API">
+      
+      
+      
+        <link rel="canonical" href="https://emen11.github.io/swiss-finance-data/DATA_SOURCES/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Data Sources - swiss-finance-data</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-sources" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="swiss-finance-data" class="md-header__button md-logo" aria-label="swiss-finance-data" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            swiss-finance-data
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data Sources
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="red"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/EMen11/swiss-finance-data" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    EMen11/swiss-finance-data
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api/snb/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../mcp/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  MCP Server
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../examples/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Examples
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../changelog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../contributing/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="swiss-finance-data" class="md-nav__button md-logo" aria-label="swiss-finance-data" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    swiss-finance-data
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/EMen11/swiss-finance-data" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    EMen11/swiss-finance-data
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/snb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SNB & SARON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/fx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FX Rates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/cpi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CPI & Inflation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/smi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SMI Equities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/bonds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bonds
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-snb-policy-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. SNB Policy Rate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. SNB Policy Rate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structure-json-retournee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure JSON retournée
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caracteristiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caractéristiques
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bonus-autres-taux-dans-le-meme-cube" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bonus — Autres taux dans le même cube
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-saron-monthly-average" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. SARON Monthly Average
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. SARON Monthly Average">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Characteristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#license_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-saron-daily-fixing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. SARON Daily Fixing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. SARON Daily Fixing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-structure_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#characteristics_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Characteristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#license_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-chf-fx-rates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. CHF FX Rates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. CHF FX Rates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-structure_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-currencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported currencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#characteristics_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Characteristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#license_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-swiss-cpi-consumer-price-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Swiss CPI (Consumer Price Index)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Swiss CPI (Consumer Price Index)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-structure_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#characteristics_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Characteristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#license_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-swiss-confederation-bond-yields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Swiss Confederation Bond Yields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Swiss Confederation Bond Yields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-structure_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#available-maturities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available maturities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#characteristics_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Characteristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parsing-note" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parsing note
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#license_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-smi-equities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. SMI Equities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. SMI Equities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tickers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tickers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#characteristics_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Characteristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#license_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="data-sources">Data Sources</h1>
+<blockquote>
+<p>This file documents all verified data sources used in swiss-finance-data v1.0.0.</p>
+</blockquote>
+<hr />
+<h2 id="1-snb-policy-rate">1. SNB Policy Rate</h2>
+<p><strong>Status:</strong> ✅ Verified 2026-03-03</p>
+<h3 id="endpoint">Endpoint</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>https://data.snb.ch/api/cube/snboffzisa/data/json/en
+</code></pre></div>
+<p><strong>Avec filtre de dates :</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>https://data.snb.ch/api/cube/snboffzisa/data/json/en?fromDate=2020-01&amp;toDate=2025-03
+</code></pre></div></p>
+<p><strong>Structure des dimensions :</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>https://data.snb.ch/api/cube/snboffzisa/dimensions/en
+</code></pre></div></p>
+<h3 id="structure-json-retournee">Structure JSON retournée</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;timeseries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">      </span><span class="nt">&quot;header&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="p">{</span><span class="nt">&quot;dim&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Overview&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;dimItem&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Switzerland - SNB policy rate&quot;</span><span class="p">}</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="p">],</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">      </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">        </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EPB@SNB.snboffzisa{LZ}&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">        </span><span class="nt">&quot;frequency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;P1M&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span><span class="nt">&quot;scale&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">        </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;In percent&quot;</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">      </span><span class="p">},</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">      </span><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">        </span><span class="p">{</span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2019-06&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.75</span><span class="p">},</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">        </span><span class="p">{</span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-03&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">},</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">        </span><span class="p">{</span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-01&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">}</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">      </span><span class="p">]</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Parse path :</strong> <code>response["timeseries"][0]["values"]</code>
+<strong>Chaque entrée :</strong> <code>{"date": "YYYY-MM", "value": float}</code></p>
+<h3 id="caracteristiques">Caractéristiques</h3>
+<table>
+<thead>
+<tr>
+<th>Propriété</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Format</td>
+<td>JSON</td>
+</tr>
+<tr>
+<td>Auth requise</td>
+<td>Non</td>
+</tr>
+<tr>
+<td>Rate limits</td>
+<td>Non documentés (usage raisonnable)</td>
+</tr>
+<tr>
+<td>Fréquence données</td>
+<td>Mensuelle (P1M)</td>
+</tr>
+<tr>
+<td>Historique</td>
+<td>Depuis 2019-06 (SNB policy rate)</td>
+</tr>
+<tr>
+<td>Unité</td>
+<td>Pourcentage</td>
+</tr>
+<tr>
+<td>Cube ID</td>
+<td><code>snboffzisa</code></td>
+</tr>
+<tr>
+<td>Dim item SNB</td>
+<td><code>LZ</code> (SNB policy rate)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bonus-autres-taux-dans-le-meme-cube">Bonus — Autres taux dans le même cube</h3>
+<p>Le cube <code>snboffzisa</code> contient aussi (gratuit, même endpoint) :</p>
+<table>
+<thead>
+<tr>
+<th>Banque Centrale</th>
+<th>Dim ID</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SNB (CH)</td>
+<td><code>LZ</code></td>
+<td>SNB policy rate</td>
+</tr>
+<tr>
+<td>Fed (US)</td>
+<td><code>UG1</code>/<code>OG1</code></td>
+<td>Fed target range (lower/upper)</td>
+</tr>
+<tr>
+<td>ECB (Euro)</td>
+<td><code>H</code></td>
+<td>Main refinancing rate</td>
+</tr>
+<tr>
+<td>ECB (Euro)</td>
+<td><code>EF</code></td>
+<td>Deposit Facility</td>
+</tr>
+<tr>
+<td>BoE (UK)</td>
+<td><code>L0</code></td>
+<td>Bank of England - Bank rate</td>
+</tr>
+<tr>
+<td>BoJ (Japan)</td>
+<td><code>L1</code></td>
+<td>Uncollateralized overnight call rate</td>
+</tr>
+</tbody>
+</table>
+<h3 id="license">License</h3>
+<p>Swiss National Bank — Swiss Federal Open Government Data.
+Free use, commercial redistribution allowed, attribution required.
+Ref: https://www.snb.ch/en/srv/disclaimer_liability</p>
+<hr />
+<h2 id="2-saron-monthly-average">2. SARON Monthly Average</h2>
+<p><strong>Status:</strong> ✅ Verified 2026-03-05 | Cube: <code>zimoma</code></p>
+<h3 id="endpoint_1">Endpoint</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>https://data.snb.ch/api/cube/zimoma/data/json/en?dimSel=D0(SARON)
+</code></pre></div>
+<h3 id="response-structure">Response structure</h3>
+<p>Same <code>timeseries[].values[]</code> format as SNB policy rate.
+<code>{"date": "YYYY-MM", "value": float}</code></p>
+<h3 id="characteristics">Characteristics</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frequency</td>
+<td>Monthly (P1M)</td>
+</tr>
+<tr>
+<td>History</td>
+<td>Since 2009-06</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>Percent</td>
+</tr>
+<tr>
+<td>Dim filter</td>
+<td><code>D0(SARON)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="license_1">License</h3>
+<p>Same as SNB policy rate — Swiss Federal Open Government Data.</p>
+<hr />
+<h2 id="3-saron-daily-fixing">3. SARON Daily Fixing</h2>
+<p><strong>Status:</strong> ✅ Verified 2026-03-05 | Cube: <code>snbgwdzid</code></p>
+<h3 id="endpoint_2">Endpoint</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>https://data.snb.ch/api/cube/snbgwdzid/data/json/en?dimSel=D0(SARON)
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>https://data.snb.ch/api/cube/snbgwdzid/data/json/en?dimSel=D0(SARON)&amp;fromDate=2024-01-01&amp;toDate=2024-12-31
+</code></pre></div>
+<h3 id="response-structure_1">Response structure</h3>
+<p>Same format — <code>{"date": "YYYY-MM-DD", "value": float}</code> — business days only.</p>
+<h3 id="characteristics_1">Characteristics</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frequency</td>
+<td>Daily (P1D), business days only</td>
+</tr>
+<tr>
+<td>History</td>
+<td>Since 2009-06-22</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>Percent</td>
+</tr>
+<tr>
+<td>Dim filter</td>
+<td><code>D0(SARON)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="license_2">License</h3>
+<p>Same as SNB policy rate — Swiss Federal Open Government Data.</p>
+<hr />
+<h2 id="4-chf-fx-rates">4. CHF FX Rates</h2>
+<p><strong>Status:</strong> ✅ Verified 2026-03-05 | Cube: <code>devkum</code></p>
+<h3 id="endpoint_3">Endpoint</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>https://data.snb.ch/api/cube/devkum/data/json/en?dimSel=D0(EUR,USD,GBP,JPY,CAD,AUD,SEK,NOK,DKK)
+</code></pre></div>
+<h3 id="response-structure_2">Response structure</h3>
+<p>Multiple timeseries, one per currency. Currency code is identified via <code>dimItem</code> header.
+<code>{"date": "YYYY-MM", "value": float}</code> — units of currency per 1 CHF.</p>
+<h3 id="supported-currencies">Supported currencies</h3>
+<p><code>EUR</code>, <code>USD</code>, <code>GBP</code>, <code>JPY</code>, <code>CAD</code>, <code>AUD</code>, <code>SEK</code>, <code>NOK</code>, <code>DKK</code></p>
+<h3 id="characteristics_2">Characteristics</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frequency</td>
+<td>Monthly (P1M)</td>
+</tr>
+<tr>
+<td>History</td>
+<td>Since 1999-01 (EUR), varies by pair</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>Foreign currency units per 1 CHF</td>
+</tr>
+</tbody>
+</table>
+<h3 id="license_3">License</h3>
+<p>Same as SNB policy rate — Swiss Federal Open Government Data.</p>
+<hr />
+<h2 id="5-swiss-cpi-consumer-price-index">5. Swiss CPI (Consumer Price Index)</h2>
+<p><strong>Status:</strong> ✅ Verified 2026-03-05 | Cube: <code>plkopr</code></p>
+<h3 id="endpoint_4">Endpoint</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>https://data.snb.ch/api/cube/plkopr/data/json/en
+</code></pre></div>
+<h3 id="response-structure_3">Response structure</h3>
+<p>Single timeseries. <code>{"date": "YYYY-MM", "value": float}</code> — index value (Dec 2020 = 100).</p>
+<h3 id="characteristics_3">Characteristics</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frequency</td>
+<td>Monthly (P1M)</td>
+</tr>
+<tr>
+<td>History</td>
+<td>Since 1921-01</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>Index (December 2020 = 100)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="license_4">License</h3>
+<p>Same as SNB policy rate — Swiss Federal Open Government Data.</p>
+<hr />
+<h2 id="6-swiss-confederation-bond-yields">6. Swiss Confederation Bond Yields</h2>
+<p><strong>Status:</strong> ✅ Verified 2026-03-06 | Cube: <code>rendoblid</code></p>
+<h3 id="endpoint_5">Endpoint</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>https://data.snb.ch/api/cube/rendoblid/data/json/en
+</code></pre></div>
+<p>No <code>dimSel</code> needed — all 22 series are fetched and filtered client-side.</p>
+<h3 id="response-structure_4">Response structure</h3>
+<p>22 timeseries total. The 13 relevant ones (Confederation bonds) are identified by matching
+<code>"CHF Swiss Confederation bond issues"</code> in the <code>dimItem</code> header field.
+Maturity is extracted from the text suffix via regex <code>r'(\d+) years?$'</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;timeseries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="nt">&quot;header&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;dimItem&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Spot interest rates ... - CHF Swiss Confederation bond issues - 10 years&quot;</span><span class="p">}],</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YYYY-MM-DD&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.378</span><span class="p">}]</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="p">}]</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="available-maturities">Available maturities</h3>
+<p>1y, 2y, 3y, 4y, 5y, 6y, 7y, 8y, 9y, 10y, 15y, 20y, 30y</p>
+<h3 id="characteristics_4">Characteristics</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frequency</td>
+<td>Monthly (P1M)</td>
+</tr>
+<tr>
+<td>History</td>
+<td>Since mid-1990s (varies by maturity)</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>Percent (spot interest rate)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="parsing-note">Parsing note</h3>
+<p><code>dimSel</code> with short codes (<code>Y10</code> etc.) does NOT work for this cube.
+Use full fetch without <code>dimSel</code> and filter by <code>dimItem</code> text.</p>
+<h3 id="license_5">License</h3>
+<p>Same as SNB policy rate — Swiss Federal Open Government Data.</p>
+<hr />
+<h2 id="7-smi-equities">7. SMI Equities</h2>
+<p><strong>Status:</strong> ✅ Verified 2026-03-05 | Source: Yahoo Finance (via <code>yfinance</code>)</p>
+<h3 id="tickers">Tickers</h3>
+<p>20 SMI constituents with <code>.SW</code> suffix:
+<code>NESN.SW</code>, <code>ROG.SW</code>, <code>NOVN.SW</code>, <code>UBSG.SW</code>, <code>ZURN.SW</code>, <code>ABBN.SW</code>,
+<code>SREN.SW</code>, <code>GIVN.SW</code>, <code>LONN.SW</code>, <code>SIKA.SW</code>, <code>GEBN.SW</code>, <code>SLHN.SW</code>,
+<code>SCMN.SW</code>, <code>HOLN.SW</code>, <code>PGHN.SW</code>, <code>CFR.SW</code>, <code>ALC.SW</code>, <code>SDZ.SW</code>,
+<code>STMN.SW</code>, <code>VACN.SW</code></p>
+<h3 id="characteristics_5">Characteristics</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frequency</td>
+<td>Daily (business days)</td>
+</tr>
+<tr>
+<td>History</td>
+<td>Varies by ticker (~10+ years)</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>CHF (adjusted closing price)</td>
+</tr>
+<tr>
+<td>Auth required</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<h3 id="license_6">License</h3>
+<p>Yahoo Finance Terms of Service — personal/research use.
+Not for commercial redistribution of raw data.</p>
+<hr />
+<p><em>Last updated: 2026-03-06</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
