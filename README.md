@@ -222,6 +222,7 @@ except DataValidationError as e:
 | Notebook | Description |
 |----------|-------------|
 | [Markowitz SMI Optimisation](examples/markowitz_smi_optimization.ipynb) | Mean-variance portfolio optimisation on SMI constituents using SARON as risk-free rate |
+| [Swiss Multi-Asset Portfolio Optimizer](https://github.com/EMen11/swiss-multiasset-portfolio-optimizer) | End-to-end portfolio optimization (Markowitz, Black-Litterman, walk-forward backtest) using swiss-finance-data as data layer |
 
 ---
 
